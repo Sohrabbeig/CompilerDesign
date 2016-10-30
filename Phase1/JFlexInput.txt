@@ -63,9 +63,10 @@ comma =","
 colon = ":"
 dot = "."
 commment="//".*
-
+BoolConst = (true)|(false)
 
 %%
+{BoolConst}                     {System.out.println(yytext());}
 {greater_than}					{System.out.println(yytext());}
 {greater_equal}					{System.out.println(yytext());}
 {not_equal}						{System.out.println(yytext());}
