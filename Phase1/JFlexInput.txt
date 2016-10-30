@@ -4,6 +4,7 @@ LineTerminator = \r|\n|\r\n
 WhiteSpace = {LineTerminator}| [ \t\f]
 letter = [a-zA-Z]
 digit = [0-9]
+pos_digit=[1-9]
 letdig = {digit}|{letter}
 ID = #{letter}{letter}{digit}{digit}
 NUMCONST = {digit}+
@@ -62,6 +63,7 @@ semicolon = ";"
 comma =","
 colon = ":"
 dot = "."
+Real_const={pos_digit}{digit}*dot{digit}*{pos_digit}
 commment="//".*
 BoolConst = (true)|(false)
 
@@ -80,7 +82,7 @@ BoolConst = (true)|(false)
 {paranteces_left}				{System.out.println(yytext());}
 {paranteces_right}				{System.out.println(yytext());}
 {semicolon}						{System.out.println(yytext());}
-{comma}						{System.out.println(yytext());}
+{comma}							{System.out.println(yytext());}
 
 {colon}							{System.out.println(yytext());}
 {dot}							{System.out.println(yytext());}
