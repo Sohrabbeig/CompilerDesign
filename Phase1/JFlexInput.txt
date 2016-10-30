@@ -33,8 +33,6 @@ plus_assign = "+""="
 minus_assign = "-""="
 multiply_assign = "*""="
 divide_assign = "/""="
-plus_plus = "+""+"
-minus_minus = "-""-"
 plus = "+"
 minus = "-"
 multiply = "*"
@@ -63,71 +61,75 @@ semicolon = ";"
 comma =","
 colon = ":"
 dot = "."
-Real_const={pos_digit}{digit}*{dot}{digit}*{pos_digit} | 0{dot}{digit}*{pos_digit} | 0{dot}0
+Real_const={pos_digit}{digit}*{dot}{digit}*{pos_digit} | 0{dot}{digit}*{pos_digit} | 0{dot}0 | {pos_digit}{digit}*{dot}0
+Fake_id= "#"{letdig}* | {letdig}+
+number_error="0"+{digit}*{dot}{digit}* | {digit}*{dot}{digit}*"0"+
 
 commment="//".*
 BoolConst = (true)|(false)
 
 %%
-{Real_const}					{System.out.println(yytext());}
-{BoolConst}                     {System.out.println(yytext());}
-{greater_than}					{System.out.println(yytext());}
-{greater_equal}					{System.out.println(yytext());}
-{not_equal}						{System.out.println(yytext());}
-{equal}							{System.out.println(yytext());}
-{less_equal}					{System.out.println(yytext());}
-{less_than}						{System.out.println(yytext());}
-{square_bracket_left}			{System.out.println(yytext());}
-{square_bracket_right}			{System.out.println(yytext());}
-{curly_braces_left}				{System.out.println(yytext());}
-{curly_brace_right}				{System.out.println(yytext());}
-{paranteces_left}				{System.out.println(yytext());}
-{paranteces_right}				{System.out.println(yytext());}
-{semicolon}						{System.out.println(yytext());}
-{comma}							{System.out.println(yytext());}
 
-{colon}							{System.out.println(yytext());}
-{dot}							{System.out.println(yytext());}
-{AND_THEN}						{System.out.println(yytext());}
-{OR_ELSE}						{System.out.println(yytext());}
-{OR}							{System.out.println(yytext());}
-{AND}							{System.out.println(yytext());}
-{NOT}							{System.out.println(yytext());}
-{IF}							{System.out.println(yytext());}
-{ELSE}							{System.out.println(yytext());}
-{SWITCH}						{System.out.println(yytext());}
-{END}							{System.out.println(yytext());}
-{CASE}							{System.out.println(yytext());}
-{DEFUALT}						{System.out.println(yytext());}
-{WHILE}							{System.out.println(yytext());}
-{RETURN}						{System.out.println(yytext());}
-{BREAK}							{System.out.println(yytext());}
-{RECORD}						{System.out.println(yytext());}
-{Static}						{System.out.println(yytext());}
-{INT}							{System.out.println(yytext());}
-{REAL}							{System.out.println(yytext());}
-{BOOL}							{System.out.println(yytext());}
-{CHAR}							{System.out.println(yytext());}
-{plus_assign}					{System.out.println(yytext());}
-{minus_assign}					{System.out.println(yytext());}
-{multiply_assign}				{System.out.println(yytext());}
-{divide_assign}					{System.out.println(yytext());}
-
-
-
+{Real_const}					{System.out.println("Real_const"+yytext()+"Real_const");}
+{number_error}					{System.out.println("number_error"+yytext());}
+{BoolConst}                     {System.out.println("BoolConst"+yytext());}
+{greater_than}					{System.out.println("greater_than"+yytext());}
+{greater_equal}					{System.out.println("greater_equal"+yytext());}
+{not_equal}						{System.out.println("not_equal"+yytext());}
+{equal}							{System.out.println("equal"+yytext());}
+{less_equal}					{System.out.println("less_equal"+yytext());}
+{less_than}						{System.out.println("less_than"+yytext());}
+{square_bracket_left}			{System.out.println("square_bracket_left"+yytext());}
+{square_bracket_right}			{System.out.println("curly_braces_left"+yytext());}
+{curly_braces_left}				{System.out.println(""+yytext());}
+{curly_brace_right}				{System.out.println("paranteces_left"+yytext());}
+{paranteces_left}				{System.out.println(""+yytext());}
+{paranteces_right}				{System.out.println("paranteces_right"+yytext());}
+{semicolon}						{System.out.println("semicolon"+yytext());}
+{comma}							{System.out.println("colon"+yytext());}
+{colon}							{System.out.println(""+yytext());}
+{dot}							{System.out.println("dot"+yytext());}
+{AND_THEN}						{System.out.println("AND_THEN"+yytext());}
+{OR_ELSE}						{System.out.println("OR_ELSE"+yytext());}
+{OR}							{System.out.println("OR"+yytext());}
+{AND}							{System.out.println("AND"+yytext());}
+{NOT}							{System.out.println("NOT"+yytext());}
+{IF}							{System.out.println("IF"+yytext());}
+{ELSE}							{System.out.println("ELSE"+yytext());}
+{SWITCH}						{System.out.println("SWITCH"+yytext());}
+{END}							{System.out.println("END"+yytext());}
+{CASE}							{System.out.println("CASE"+yytext());}
+{DEFUALT}						{System.out.println("DEFUALT"+yytext());}
+{WHILE}							{System.out.println("WHILE"+yytext());}
+{RETURN}						{System.out.println("RETURN"+yytext());}
+{BREAK}							{System.out.println("BREAK"+yytext());}
+{RECORD}						{System.out.println("RECORD"+yytext());}
+{Static}						{System.out.println("Static"+yytext());}
+{INT}							{System.out.println("INT"+yytext());}
+{REAL}							{System.out.println("REAL"+yytext());}
+{BOOL}							{System.out.println("BOOL"+yytext());}
+{CHAR}							{System.out.println("CHAR"+yytext());}
+{plus_assign}					{System.out.println("plus_assign"+yytext());}
+{minus_assign}					{System.out.println("minus_assign"+yytext());}
+{multiply_assign}				{System.out.println("multiply_assign"+yytext());}
+{divide_assign}					{System.out.println("divide_assign"+yytext());}
 
 
-{quesion_mark}					{System.out.println(yytext());}
-{modulo}						{System.out.println(yytext());}
-{division}						{System.out.println(yytext());}
-{multiply}						{System.out.println(yytext());}
-{minus}							{System.out.println(yytext());}
-{plus}							{System.out.println(yytext());}
-{assignment}					{System.out.println(yytext());}
-{NUMCONST}						{System.out.println(yytext());}
-{ID}							{System.out.println(yytext());}
+
+
+
+{quesion_mark}					{System.out.println("quesion_mark"+yytext());}
+{modulo}						{System.out.println("modulo"+yytext());}
+{division}						{System.out.println("division"+yytext());}
+{multiply}						{System.out.println("multiply"+yytext());}
+{minus}							{System.out.println("minus"+yytext());}
+{plus}							{System.out.println("plus"+yytext());}
+{assignment}					{System.out.println("assignment"+yytext());}
+{NUMCONST}						{System.out.println("NUMCONST"+yytext());}
+{ID}							{System.out.println("Fake_id"+yytext());}
+{Fake_id}						{System.out.println(""+yytext());}
 {WhiteSpace}					{}
-{commment}						{System.out.println(yytext());}		
+{commment}						{System.out.println("commment"+yytext());}		
 .								{System.out.println("illegal character");}
 
 
