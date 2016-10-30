@@ -27,7 +27,7 @@ DEFUALT = (default)
 WHILE = (while)
 RETURN = (return)
 BREAK = (break)
-assignment = "="
+assignment = "=" 
 plus_assign = "+""="
 minus_assign = "-""="
 multiply_assign = "*""="
@@ -45,7 +45,7 @@ AND = (and)
 NOT = (not)
 AND_THEN = (and)" "(then)
 OR_ELSE = (or)" "(else)
-greater_than = (.gt)
+greater_than = ".gt"
 greater_equal = (.ge)
 less_than = (.lt)
 less_equal = (.le)
@@ -59,18 +59,19 @@ curly_brace_right = "}"
 paranteces_left = "("
 paranteces_right = ")"
 semicolon = ";"
-comma =","
+Virgul=","
 colon = ":"
 dot = "."
-comment1 = "/""/" ({letter} | {WhiteSpace})* \n
-comment2 = "/""/" ({letter} | {WhiteSpace})*
+commment="//".*
 
 
 %%
-{greater_than}		{System.out.println("and_then");}
-{greater_equal}		{System.out.println("and_then");}
-{not_equal}			{System.out.println("and_then");}
-{equal}				{System.out.println("and_then");}
+{greater_than}					{System.out.println(yytext());}
+{greater_equal}					{System.out.println(yytext());}
+{not_equal}						{System.out.println(yytext());}
+{equal}							{System.out.println(yytext());}
+{less_equal}					{System.out.println(yytext());}
+{less_than}						{System.out.println(yytext());}
 {square_bracket_left}			{System.out.println(yytext());}
 {square_bracket_right}			{System.out.println(yytext());}
 {curly_braces_left}				{System.out.println(yytext());}
@@ -106,8 +107,9 @@ comment2 = "/""/" ({letter} | {WhiteSpace})*
 {minus_assign}					{System.out.println(yytext());}
 {multiply_assign}				{System.out.println(yytext());}
 {divide_assign}					{System.out.println(yytext());}
-{plus_plus}						{System.out.println(yytext());}
-{minus_minus}					{System.out.println(yytext());}
+
+
+
 
 
 {quesion_mark}					{System.out.println(yytext());}
@@ -120,5 +122,7 @@ comment2 = "/""/" ({letter} | {WhiteSpace})*
 {NUMCONST}						{System.out.println(yytext());}
 {ID}							{System.out.println(yytext());}
 {WhiteSpace}					{}
+{commment}						{System.out.println(yytext());}		
+.								{System.out.println("illegal character");}
 
 
