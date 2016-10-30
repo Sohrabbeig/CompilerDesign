@@ -59,7 +59,7 @@ curly_brace_right = "}"
 paranteces_left = "("
 paranteces_right = ")"
 semicolon = ";"
-Virgul=","
+comma =","
 colon = ":"
 dot = "."
 commment="//".*
@@ -79,7 +79,7 @@ commment="//".*
 {paranteces_left}				{System.out.println(yytext());}
 {paranteces_right}				{System.out.println(yytext());}
 {semicolon}						{System.out.println(yytext());}
-{Virgul}						{System.out.println(yytext());}
+{comma}						{System.out.println(yytext());}
 
 {colon}							{System.out.println(yytext());}
 {dot}							{System.out.println(yytext());}
