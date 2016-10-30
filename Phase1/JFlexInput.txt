@@ -63,11 +63,13 @@ semicolon = ";"
 comma =","
 colon = ":"
 dot = "."
-Real_const={pos_digit}{digit}*dot{digit}*{pos_digit}
+Real_const={pos_digit}{digit}*{dot}{digit}*{pos_digit} | 0{dot}{digit}*{pos_digit} | 0{dot}0
+
 commment="//".*
 BoolConst = (true)|(false)
 
 %%
+{Real_const}					{System.out.println(yytext());}
 {BoolConst}                     {System.out.println(yytext());}
 {greater_than}					{System.out.println(yytext());}
 {greater_equal}					{System.out.println(yytext());}
