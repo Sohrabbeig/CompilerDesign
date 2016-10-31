@@ -1,5 +1,5 @@
+static int last = 0;
 %%
-
 LineTerminator = \r|\n|\r\n
 WhiteSpace = {LineTerminator}| [ \t\f]
 letter = [a-zA-Z]
@@ -24,7 +24,7 @@ ELSE = (else)
 SWITCH = (switch)
 END = (end)
 CASE = (case)
-DEFUALT = (default)
+DEFAULT = (default)
 WHILE = (while)
 RETURN = (return)
 BREAK = (break)
@@ -38,7 +38,7 @@ minus = "-"
 multiply = "*"
 division = "/"
 modulo = "%"
-quesion_mark = "?"
+question_mark = "?"
 OR = (or)
 AND = (and)
 NOT = (not)
@@ -53,10 +53,10 @@ equal = (.eq)
 minus_sing = "-"
 square_bracket_left = "["
 square_bracket_right = "]"
-curly_braces_left = "{"
+curly_brace_left = "{"
 curly_brace_right = "}"
-paranteces_left = "("
-paranteces_right = ")"
+parenthesis_left = "("
+parenthesis_right = ")"
 semicolon = ";"
 comma =","
 colon = ":"
@@ -65,71 +65,68 @@ Real_const={pos_digit}{digit}*{dot}{digit}*{pos_digit} | 0{dot}{digit}*{pos_digi
 Fake_id= "#"{letdig}* | {letdig}+
 number_error="0"+{digit}*{dot}{digit}* | {digit}*{dot}{digit}*"0"+
 
-commment="//".*
+comment="//".*
 BoolConst = (true)|(false)
 
 %%
 
-{Real_const}					{System.out.println("Real_const"+yytext()+"Real_const");}
-{number_error}					{System.out.println("number_error"+yytext());}
-{BoolConst}                     {System.out.println("BoolConst"+yytext());}
-{greater_than}					{System.out.println("greater_than"+yytext());}
-{greater_equal}					{System.out.println("greater_equal"+yytext());}
-{not_equal}						{System.out.println("not_equal"+yytext());}
-{equal}							{System.out.println("equal"+yytext());}
-{less_equal}					{System.out.println("less_equal"+yytext());}
-{less_than}						{System.out.println("less_than"+yytext());}
-{square_bracket_left}			{System.out.println("square_bracket_left"+yytext());}
-{square_bracket_right}			{System.out.println("curly_braces_left"+yytext());}
-{curly_braces_left}				{System.out.println(""+yytext());}
-{curly_brace_right}				{System.out.println("paranteces_left"+yytext());}
-{paranteces_left}				{System.out.println(""+yytext());}
-{paranteces_right}				{System.out.println("paranteces_right"+yytext());}
-{semicolon}						{System.out.println("semicolon"+yytext());}
-{comma}							{System.out.println("colon"+yytext());}
-{colon}							{System.out.println(""+yytext());}
-{dot}							{System.out.println("dot"+yytext());}
-{AND_THEN}						{System.out.println("AND_THEN"+yytext());}
-{OR_ELSE}						{System.out.println("OR_ELSE"+yytext());}
-{OR}							{System.out.println("OR"+yytext());}
-{AND}							{System.out.println("AND"+yytext());}
-{NOT}							{System.out.println("NOT"+yytext());}
-{IF}							{System.out.println("IF"+yytext());}
-{ELSE}							{System.out.println("ELSE"+yytext());}
-{SWITCH}						{System.out.println("SWITCH"+yytext());}
-{END}							{System.out.println("END"+yytext());}
-{CASE}							{System.out.println("CASE"+yytext());}
-{DEFUALT}						{System.out.println("DEFUALT"+yytext());}
-{WHILE}							{System.out.println("WHILE"+yytext());}
-{RETURN}						{System.out.println("RETURN"+yytext());}
-{BREAK}							{System.out.println("BREAK"+yytext());}
-{RECORD}						{System.out.println("RECORD"+yytext());}
-{Static}						{System.out.println("Static"+yytext());}
-{INT}							{System.out.println("INT"+yytext());}
-{REAL}							{System.out.println("REAL"+yytext());}
-{BOOL}							{System.out.println("BOOL"+yytext());}
-{CHAR}							{System.out.println("CHAR"+yytext());}
-{plus_assign}					{System.out.println("plus_assign"+yytext());}
-{minus_assign}					{System.out.println("minus_assign"+yytext());}
-{multiply_assign}				{System.out.println("multiply_assign"+yytext());}
-{divide_assign}					{System.out.println("divide_assign"+yytext());}
-
-
-
-
-
-{quesion_mark}					{System.out.println("quesion_mark"+yytext());}
-{modulo}						{System.out.println("modulo"+yytext());}
-{division}						{System.out.println("division"+yytext());}
-{multiply}						{System.out.println("multiply"+yytext());}
-{minus}							{System.out.println("minus"+yytext());}
-{plus}							{System.out.println("plus"+yytext());}
-{assignment}					{System.out.println("assignment"+yytext());}
-{NUMCONST}						{System.out.println("NUMCONST"+yytext());}
-{ID}							{System.out.println("Fake_id"+yytext());}
-{Fake_id}						{System.out.println(""+yytext());}
+{Real_const}					{System.out.println("Real_const"+"\t"+yytext()+"\t"+"-");}
+{number_error}					{System.out.println("number_error"+"\t"+yytext()+"\t"+"-");}
+{BoolConst}                     {System.out.println("BoolConst"+"\t"+yytext()+"\t"+"-");}
+{greater_than}					{System.out.println("greater_than"+"\t"+yytext()+"\t"+"-");}
+{greater_equal}					{System.out.println("greater_equal"+"\t"+yytext()+"\t"+"-");}
+{not_equal}						{System.out.println("not_equal"+"\t"+yytext()+"\t"+"-");}
+{equal}							{System.out.println("equal"+"\t"+yytext()+"\t"+"-");}
+{less_equal}					{System.out.println("less_equal"+"\t"+yytext()+"\t"+"-");}
+{less_than}						{System.out.println("less_than"+"\t"+yytext()+"\t"+"-");}
+{square_bracket_left}			{System.out.println("square_bracket_left"+"\t"+yytext()+"\t"+"-");}
+{square_bracket_right}			{System.out.println("square_bracket_right"+"\t"+yytext()+"\t"+"-");}
+{curly_brace_left}				{System.out.println("curly_brace_left"+"\t"+yytext()+"\t"+"-");}
+{curly_brace_right} 			{System.out.println("curly_brace_right"+"\t"+yytext()+"\t"+"-");}
+{parenthesis_left}				{System.out.println("parenthesis_left"+"\t"+yytext()+"\t"+"-");}
+{parenthesis_right}				{System.out.println("parenthesis_right"+"\t"+yytext()+"\t"+"-");}
+{semicolon}						{System.out.println("semicolon"+"\t"+yytext()+"\t"+"-");}
+{comma}							{System.out.println("comma"+"\t"+yytext()+"\t"+"-");}
+{colon}							{System.out.println("colon"+"\t"+yytext()+"\t"+"-");}
+{dot}							{System.out.println("dot"+"\t"+yytext()+"\t"+"-");}
+{AND_THEN}						{System.out.println("AND_THEN"+"\t"+yytext()+"\t"+"-");}
+{OR_ELSE}						{System.out.println("OR_ELSE"+"\t"+yytext()+"\t"+"-");}
+{OR}							{System.out.println("OR"+"\t"+yytext()+"\t"+"-");}
+{AND}							{System.out.println("AND"+"\t"+yytext()+"\t"+"-");}
+{NOT}							{System.out.println("NOT"+"\t"+yytext()+"\t"+"-");}
+{IF}							{System.out.println("IF"+"\t"+yytext()+"\t"+"-");}
+{ELSE}							{System.out.println("ELSE"+"\t"+yytext()+"\t"+"-");}
+{SWITCH}						{System.out.println("SWITCH"+"\t"+yytext()+"\t"+"-");}
+{END}							{System.out.println("END"+"\t"+yytext()+"\t"+"-");}
+{CASE}							{System.out.println("CASE"+"\t"+yytext()+"\t"+"-");}
+{DEFAULT}						{System.out.println("DEFAULT"+"\t"+yytext()+"\t"+"-");}
+{WHILE}							{System.out.println("WHILE"+"\t"+yytext()+"\t"+"-");}
+{RETURN}						{System.out.println("RETURN"+"\t"+yytext()+"\t"+"-");}
+{BREAK}							{System.out.println("BREAK"+"\t"+yytext()+"\t"+"-");}
+{RECORD}						{System.out.println("RECORD"+"\t"+yytext()+"\t"+"-");}
+{Static}						{System.out.println("Static"+"\t"+yytext()+"\t"+"-");}
+{INT}							{System.out.println("INT"+"\t"+yytext()+"\t"+"-");}
+{REAL}							{System.out.println("REAL"+"\t"+yytext()+"\t"+"-");}
+{BOOL}							{System.out.println("BOOL"+"\t"+yytext()+"\t"+"-");}
+{CHAR}							{System.out.println("CHAR"+"\t"+yytext()+"\t"+"-");}
+{plus_assign}					{System.out.println("plus_assign"+"\t"+yytext()+"\t"+"-");}
+{minus_assign}					{System.out.println("minus_assign"+"\t"+yytext()+"\t"+"-");}
+{multiply_assign}				{System.out.println("multiply_assign"+"\t"+yytext()+"\t"+"-");}
+{divide_assign}					{System.out.println("divide_assign"+"\t"+yytext()+"\t"+"-");}
+{question_mark}					{System.out.println("question_mark"+"\t"+yytext()+"\t"+"-");}
+{modulo}						{System.out.println("modulo"+"\t"+yytext()+"\t"+"-");}
+{division}						{System.out.println("division"+"\t"+yytext()+"\t"+"-");}
+{multiply}						{System.out.println("multiply"+"\t"+yytext()+"\t"+"-");}
+{minus}							{System.out.println("minus"+"\t"+yytext()+"\t"+"-");}
+{plus}							{System.out.println("plus"+"\t"+yytext()+"\t"+"-");}
+{assignment}					{System.out.println("assignment"+"\t"+yytext()+"\t"+"-");}
+{NUMCONST}						{System.out.println("NUMCONST"+"\t"+yytext()+"\t"+"-");}
+{ID}							{System.out.println("ID"+"\t"+yytext()+last);
+                                 last++;
+                                }
+{Fake_id}						{System.out.println("Fake_id"+"\t"+yytext()+"\t"+"-");}
 {WhiteSpace}					{}
-{commment}						{System.out.println("commment"+yytext());}		
+{comment}						{System.out.println("comment"+"\t"+yytext()+"\t"+"-");}
 .								{System.out.println("illegal character");}
 
 
