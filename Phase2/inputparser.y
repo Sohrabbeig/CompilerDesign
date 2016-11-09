@@ -2,12 +2,18 @@
 
 
 
-%token Real_const number_error BoolConst greater_than greater_equal not_equal equal less_equal less_than square_bracket_left square_bracket_right curly_brace_left curly_brace_right parenthesis_left parenthesis_right semicolon comma colon dot AND_THEN OR_ELSE OR AND NOT IF ELSE SWITCH END CASE DEFAULT WHILE RETURN BREAK RECORD Static INT REAL BOOL CHAR plus_assign minus_assign multiply_assign divide_assign question_mark modulo division multiply minus plus assignment NUMCONST ID Fake_id WhiteSpace  CHARCONST	THEN                                                                                                       
+%token Real_const number_error BoolConst greater_than greater_equal not_equal equal less_equal less_than square_bracket_left square_bracket_right curly_brace_left curly_brace_right parenthesis_left parenthesis_right semicolon comma colon dot AND_THEN OR_ELSE OR AND NOT IF ELSE SWITCH END CASE DEFAULT WHILE RETURN BREAK RECORD Static INT REAL BOOL CHAR plus_assign minus_assign multiply_assign divide_assign question_mark modulo division multiply minus plus assignment NUMCONST ID Fake_id WhiteSpace  CHARCONST	THEN
 
-%left OR
-%left AND
-%left NOT
-%left ELSE
+%left OR OR_ELSE
+%left AND AND_THEN
+%left equal not_equal
+%left less_than greater_than less_equal greater_equal
+%left '+' '-'
+%left '%'
+%left '*' '/'
+%right NOT
+%nonassoc THEN
+%nonassoc ELSE
 
 %%
 
@@ -28,7 +34,7 @@ declarationList : declarationList declaration
 
 
 
-| declaration	
+| declaration
 {
 		System.out.printf("Rule 3 declarationList : declaration\n") ;
 	};
@@ -200,14 +206,6 @@ typeSpecifier : returnTypeSpecifier
 
 
 
-
- |  /* | RECTYPE   */
- 
- 
- 
-{
-		System.out.printf("Rule 18 typeSpecifier :  /* | RECTYPE   */ \n") ;
-	};
 
 
 
@@ -539,7 +537,7 @@ expressionStmt : expression ';'
 
 
 
-selectionStmt : IF '(' simpleExpression ')' statement 
+selectionStmt : IF '(' simpleExpression ')' statement %prec THEN
 
 
 
@@ -674,7 +672,7 @@ expression : mutable '=' expression
   
 
 
-| mutable '+' '=' expression 
+| mutable "+=" expression
 
 
 
@@ -687,7 +685,7 @@ expression : mutable '=' expression
 
 
 
-| mutable '-' '=' expression 
+| mutable "-=" expression
 
 
 
@@ -700,7 +698,7 @@ expression : mutable '=' expression
 
 
 
-|  mutable '*' '=' expression 
+|  mutable "*=" expression
 
 
 
@@ -713,7 +711,7 @@ expression : mutable '=' expression
 
 
 
-| mutable '/' '=' expression 
+| mutable "/=" expression
 
 
 
@@ -725,7 +723,7 @@ expression : mutable '=' expression
 
 
 
-| mutable '+' '+' 
+| mutable "++"
 
 
 
@@ -737,7 +735,7 @@ expression : mutable '=' expression
 
 
 
-| mutable '-' '-' 
+| mutable "--"
 
 
 
@@ -795,7 +793,7 @@ simpleExpression : simpleExpression OR simpleExpression
 
 
 
-| simpleExpression OR ELSE simpleExpression 
+| simpleExpression OR_ELSE simpleExpression
 
 
 
@@ -806,7 +804,7 @@ simpleExpression : simpleExpression OR simpleExpression
 
 
 
-| simpleExpression AND THEN simpleExpression 
+| simpleExpression AND_THEN simpleExpression
 
 
 
@@ -930,13 +928,40 @@ relop : less_equal
 
 
 
-mathlogicExpression : mathlogicExpression mathop mathlogicExpression  
+mathlogicExpression : mathlogicExpression '+' mathlogicExpression
 
 
  {
 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
 	};
 
+|mathlogicExpression '-' mathlogicExpression
+
+
+  {
+ 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
+ 	};
+
+|mathlogicExpression '*' mathlogicExpression
+
+
+  {
+ 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
+ 	};
+
+|mathlogicExpression '/' mathlogicExpression
+
+
+  {
+ 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
+ 	};
+
+|mathlogicExpression '%' mathlogicExpression
+
+
+  {
+ 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
+ 	};
 
 
 
@@ -945,66 +970,6 @@ mathlogicExpression : mathlogicExpression mathop mathlogicExpression
  {
 		System.out.printf("Rule 82 mathlogicExpression : unaryExpression\n") ;
 	};
-
-
-
-
-mathop : '+' 
-
-
-{
-		System.out.printf("Rule 83 mathop : '+'  \n") ;
-	};
-
-
-
-| '-' 
-
-
-
-
-{
-		System.out.printf("Rule 84 mathop : '-'  \n") ;
-	};
-
-
-
-
-| '*' 
-
-
-
-{
-		System.out.printf("Rule 85 mathop : '*'  \n") ;
-	};
-
-
-
-| '/' 
-
-
-
-
-{
-		System.out.printf("Rule 86 mathop : '/'  \n") ;
-	};
-
-
-
-
-| '%'
-
-
-
-
-{
-		System.out.printf("Rule 87 mathop : '%'  \n") ;
-	};
-
-
-
-
-
 
 
 
