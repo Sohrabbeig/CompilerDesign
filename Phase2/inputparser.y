@@ -4,6 +4,10 @@
 
 %token Real_const number_error BoolConst greater_than greater_equal not_equal equal less_equal less_than square_bracket_left square_bracket_right curly_brace_left curly_brace_right parenthesis_left parenthesis_right semicolon comma colon dot AND_THEN OR_ELSE OR AND NOT IF ELSE SWITCH END CASE DEFAULT WHILE RETURN BREAK RECORD Static INT REAL BOOL CHAR plus_assign minus_assign multiply_assign divide_assign question_mark modulo division multiply minus plus assignment NUMCONST ID Fake_id WhiteSpace  CHARCONST	THEN                                                                                                       
 
+%left OR
+%left AND
+%left NOT
+%left ELSE
 
 %%
 
