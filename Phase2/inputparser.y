@@ -2,7 +2,20 @@
 
 
 
-%token Real_const number_error BoolConst greater_than greater_equal not_equal equal less_equal less_than square_bracket_left square_bracket_right curly_brace_left curly_brace_right parenthesis_left parenthesis_right semicolon comma colon dot AND_THEN OR_ELSE OR AND NOT IF ELSE SWITCH END CASE DEFAULT WHILE RETURN BREAK RECORD Static INT REAL BOOL CHAR plus_assign minus_assign multiply_assign divide_assign question_mark modulo division multiply minus plus assignment NUMCONST ID Fake_id WhiteSpace  CHARCONST	THEN                                                                                                       
+%token Real_const number_error BoolConst greater_than greater_equal not_equal equal less_equal less_than square_bracket_left square_bracket_right curly_brace_left curly_brace_right parenthesis_left parenthesis_right semicolon comma colon dot AND_THEN OR_ELSE OR AND NOT IF ELSE SWITCH END CASE DEFAULT WHILE RETURN BREAK RECORD Static INT REAL BOOL CHAR plus_assign minus_assign multiply_assign divide_assign question_mark modulo division multiply minus plus assignment NUMCONST ID Fake_id WhiteSpace  CHARCONST	THEN
+
+
+
+%left OR OR_ELSE
+%left AND AND_THEN
+%left equal not_equal
+%left less_than greater_than less_equal greater_equal
+%left plus minus
+%left modulo
+%left multiply division
+%right NOT
+%nonassoc THEN
+%nonassoc ELSE
 
 
 %%
@@ -24,7 +37,7 @@ declarationList : declarationList declaration
 
 
 
-| declaration	
+| declaration
 {
 		System.out.printf("Rule 3 declarationList : declaration\n") ;
 	};
@@ -59,16 +72,16 @@ declaration : varDeclaration
 
 
 
-recDeclaration : RECORD ID '{' localDeclarations '}'
+recDeclaration : RECORD ID curly_brace_left localDeclarations curly_brace_right
 
 
 {
-		System.out.printf("Rule 7 recDeclaration : RECORD ID '{' localDeclarations '}'\n") ;
+		System.out.printf("Rule 7 recDeclaration : RECORD ID '{' localDeclarations \n") ;
 	};
 
 
 
-varDeclaration : typeSpecifier varDeclList ';'
+varDeclaration : typeSpecifier varDeclList semicolon
 
 
 {
@@ -80,7 +93,7 @@ varDeclaration : typeSpecifier varDeclList ';'
 
 
 
-scopedVarDeclaration : scopedTypeSpecifier varDeclList ';'
+scopedVarDeclaration : scopedTypeSpecifier varDeclList semicolon
 
 
 {
@@ -91,7 +104,7 @@ scopedVarDeclaration : scopedTypeSpecifier varDeclList ';'
 
 
 
-varDeclList : varDeclList ',' varDeclInitialize
+varDeclList : varDeclList comma varDeclInitialize
 
 
 
@@ -116,14 +129,14 @@ varDeclInitialize : varDeclId
 
  
 {
-		System.out.printf("Rule 11 varDeclInitialize : varDeclId  \n") ;
+		System.out.printf("Rule 11' varDeclInitialize : varDeclId  \n") ;
 	};
 
 
 
 
 
-| varDeclId ':' simpleExpression
+| varDeclId colon simpleExpression
 
 
 
@@ -149,10 +162,10 @@ varDeclId : ID
 
 
 
-| ID '[' NUMCONST ']'
+| ID square_bracket_left NUMCONST square_bracket_right
 
 {
-		System.out.printf("Rule 14 varDeclId :  ID '[' NUMCONST ']' \n") ;
+		System.out.printf("Rule 14 varDeclId :  ID  NUMCONST ']' \n") ;
 	};
 
 
@@ -196,14 +209,6 @@ typeSpecifier : returnTypeSpecifier
 
 
 
-
- |  /* | RECTYPE   */
- 
- 
- 
-{
-		System.out.printf("Rule 18 typeSpecifier :  /* | RECTYPE   */ \n") ;
-	};
 
 
 
@@ -260,7 +265,7 @@ returnTypeSpecifier : INT
 
 
 
-funDeclaration : typeSpecifier ID '(' params ')' statement 
+funDeclaration : typeSpecifier ID parenthesis_left params parenthesis_right statement 
 
 
 {
@@ -270,7 +275,7 @@ funDeclaration : typeSpecifier ID '(' params ')' statement
 
 
 
-| ID '(' params ')' statement
+| ID parenthesis_left params parenthesis_right statement
 
 
 
@@ -301,7 +306,7 @@ params : paramList
 
 
 
-paramList : paramList ';' paramTypeList 
+paramList : paramList semicolon paramTypeList 
 
 {
 		System.out.printf("Rule 27 paramList : paramList ';' paramTypeList \n") ;
@@ -336,7 +341,7 @@ paramTypeList : typeSpecifier paramIdList
 
 
 
-paramIdList : paramIdList ',' paramId 
+paramIdList : paramIdList comma paramId 
 
 
 
@@ -375,7 +380,7 @@ paramId : ID
 
 
 
-| ID '[' ']'
+| ID square_bracket_left square_bracket_right
 
 
 {
@@ -457,7 +462,7 @@ statement : expressionStmt
  
 
 
- compoundStmt : '{' localDeclarations statementList '}'
+ compoundStmt : curly_brace_left localDeclarations statementList curly_brace_right
  
  
  
@@ -512,7 +517,7 @@ statementList : statementList statement
 	};
 
 
-expressionStmt : expression ';' 
+expressionStmt : expression semicolon 
 
 
 {
@@ -522,7 +527,7 @@ expressionStmt : expression ';'
 
 
 
-| ';'
+| semicolon
  
  
 
@@ -535,7 +540,7 @@ expressionStmt : expression ';'
 
 
 
-selectionStmt : IF '(' simpleExpression ')' statement 
+selectionStmt : IF parenthesis_left simpleExpression parenthesis_right statement %prec THEN
 
 
 
@@ -545,7 +550,7 @@ selectionStmt : IF '(' simpleExpression ')' statement
 
 
 
-| IF '(' simpleExpression ')' statement
+| IF parenthesis_left simpleExpression parenthesis_right statement
 ELSE statement 
 
 
@@ -560,7 +565,7 @@ ELSE statement
 
 
 
-| SWITCH '(' simpleExpression ')' caseElement defaultElement END
+| SWITCH parenthesis_left simpleExpression parenthesis_right caseElement defaultElement END
 
 
 
@@ -572,7 +577,7 @@ ELSE statement
 
 
 
-caseElement : CASE NUMCONST ':' statement ';' 
+caseElement : CASE NUMCONST colon statement semicolon 
 
 
 
@@ -582,7 +587,7 @@ caseElement : CASE NUMCONST ':' statement ';'
 
 
 
-| caseElement CASE NUMCONST ':' statement ';'
+| caseElement CASE NUMCONST colon statement semicolon
 
 
 
@@ -591,7 +596,7 @@ caseElement : CASE NUMCONST ':' statement ';'
 	};
 
 
-defaultElement : DEFAULT ':' statement ';'    
+defaultElement : DEFAULT colon statement semicolon    
 
 
 
@@ -613,7 +618,7 @@ defaultElement : DEFAULT ':' statement ';'
 
 
 
- iterationStmt : WHILE '(' simpleExpression ')' statement
+ iterationStmt : WHILE parenthesis_left simpleExpression parenthesis_right statement
  
  
 
@@ -624,7 +629,7 @@ defaultElement : DEFAULT ':' statement ';'
  
  
  
-  returnStmt : RETURN ';' 
+  returnStmt : RETURN semicolon 
   
   
   {
@@ -633,7 +638,7 @@ defaultElement : DEFAULT ':' statement ';'
   
   
   
-  | RETURN expression ';'
+  | RETURN expression semicolon
   
   
     
@@ -645,7 +650,7 @@ defaultElement : DEFAULT ':' statement ';'
   
   
   
-breakStmt : BREAK ';'
+breakStmt : BREAK semicolon
 
 
    
@@ -659,7 +664,7 @@ breakStmt : BREAK ';'
    
    
    
-expression : mutable '=' expression 
+expression : mutable assignment expression 
 
 
 
@@ -670,7 +675,7 @@ expression : mutable '=' expression
   
 
 
-| mutable '+' '=' expression 
+| mutable plus_assign expression
 
 
 
@@ -683,7 +688,7 @@ expression : mutable '=' expression
 
 
 
-| mutable '-' '=' expression 
+| mutable minus_assign expression
 
 
 
@@ -696,7 +701,7 @@ expression : mutable '=' expression
 
 
 
-|  mutable '*' '=' expression 
+|  mutable multiply_assign expression
 
 
 
@@ -709,7 +714,7 @@ expression : mutable '=' expression
 
 
 
-| mutable '/' '=' expression 
+| mutable divide_assign expression
 
 
 
@@ -721,7 +726,7 @@ expression : mutable '=' expression
 
 
 
-| mutable '+' '+' 
+| mutable "++"
 
 
 
@@ -733,7 +738,7 @@ expression : mutable '=' expression
 
 
 
-| mutable '-' '-' 
+| mutable "--"
 
 
 
@@ -791,7 +796,7 @@ simpleExpression : simpleExpression OR simpleExpression
 
 
 
-| simpleExpression OR ELSE simpleExpression 
+| simpleExpression OR_ELSE simpleExpression
 
 
 
@@ -802,7 +807,7 @@ simpleExpression : simpleExpression OR simpleExpression
 
 
 
-| simpleExpression AND THEN simpleExpression 
+| simpleExpression AND_THEN simpleExpression
 
 
 
@@ -926,13 +931,40 @@ relop : less_equal
 
 
 
-mathlogicExpression : mathlogicExpression mathop mathlogicExpression  
+mathlogicExpression : mathlogicExpression plus mathlogicExpression
 
 
  {
 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
 	};
 
+|mathlogicExpression minus mathlogicExpression
+
+
+  {
+ 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
+ 	};
+
+|mathlogicExpression multiply mathlogicExpression
+
+
+  {
+ 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
+ 	};
+
+|mathlogicExpression division mathlogicExpression
+
+
+  {
+ 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
+ 	};
+
+|mathlogicExpression modulo mathlogicExpression
+
+
+  {
+ 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
+ 	};
 
 
 
@@ -941,66 +973,6 @@ mathlogicExpression : mathlogicExpression mathop mathlogicExpression
  {
 		System.out.printf("Rule 82 mathlogicExpression : unaryExpression\n") ;
 	};
-
-
-
-
-mathop : '+' 
-
-
-{
-		System.out.printf("Rule 83 mathop : '+'  \n") ;
-	};
-
-
-
-| '-' 
-
-
-
-
-{
-		System.out.printf("Rule 84 mathop : '-'  \n") ;
-	};
-
-
-
-
-| '*' 
-
-
-
-{
-		System.out.printf("Rule 85 mathop : '*'  \n") ;
-	};
-
-
-
-| '/' 
-
-
-
-
-{
-		System.out.printf("Rule 86 mathop : '/'  \n") ;
-	};
-
-
-
-
-| '%'
-
-
-
-
-{
-		System.out.printf("Rule 87 mathop : '%'  \n") ;
-	};
-
-
-
-
-
 
 
 
@@ -1038,7 +1010,7 @@ unaryExpression : unaryop unaryExpression
 
 
 
-unaryop : '-' 
+unaryop : minus 
 
 
 
@@ -1052,7 +1024,7 @@ unaryop : '-'
 
 
 
-| '*' 
+| multiply 
 
 
 
@@ -1066,7 +1038,7 @@ unaryop : '-'
 
 
 
-| '?'
+| question_mark
 
 
 
@@ -1114,7 +1086,7 @@ mutable : ID
 
 
 
-| mutable '[' expression ']' 
+| mutable square_bracket_left expression square_bracket_right 
 
 
 
@@ -1126,7 +1098,7 @@ mutable : ID
 
 
 
-| mutable '.' ID
+| mutable dot ID
 
 
 {
@@ -1140,7 +1112,7 @@ mutable : ID
 
 
 
-immutable : '(' expression ')' 
+immutable : parenthesis_left expression parenthesis_right 
 
 
 
@@ -1179,7 +1151,7 @@ immutable : '(' expression ')'
 
 
 
-call : ID '(' args ')'
+call : ID parenthesis_left args parenthesis_right
 
 
 
@@ -1219,7 +1191,7 @@ args : argList
  
  
  
-argList : argList ',' expression 
+argList : argList comma expression 
 
 
 
@@ -1291,52 +1263,10 @@ argList : argList ',' expression
 		System.out.printf("Rule 105  constant : BoolConst  \n") ;
 	};
  
+ 
+ %%
+ 
 
-      
  
  
  
- 
- 
- 
- 
-
-
-
-
-
-      
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
