@@ -4,12 +4,16 @@
 
 %token Real_const number_error BoolConst greater_than greater_equal not_equal equal less_equal less_than square_bracket_left square_bracket_right curly_brace_left curly_brace_right parenthesis_left parenthesis_right semicolon comma colon dot AND_THEN OR_ELSE OR AND NOT IF ELSE SWITCH END CASE DEFAULT WHILE RETURN BREAK RECORD Static INT REAL BOOL CHAR plus_assign minus_assign multiply_assign divide_assign question_mark modulo division multiply minus plus assignment NUMCONST ID Fake_id WhiteSpace  CHARCONST	THEN
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 %left OR OR_ELSE
 %left AND AND_THEN
 %left equal not_equal
 %left less_than greater_than less_equal greater_equal
+<<<<<<< HEAD
 %left plus minus
 %left modulo
 %left multiply division
@@ -17,6 +21,14 @@
 %nonassoc THEN
 %nonassoc ELSE
 
+=======
+%left '+' '-'
+%left '%'
+%left '*' '/'
+%right NOT
+%nonassoc THEN
+%nonassoc ELSE
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 %%
 
@@ -540,7 +552,11 @@ expressionStmt : expression semicolon
 
 
 
+<<<<<<< HEAD
 selectionStmt : IF parenthesis_left simpleExpression parenthesis_right statement %prec THEN
+=======
+selectionStmt : IF '(' simpleExpression ')' statement %prec THEN
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 
 
@@ -675,7 +691,11 @@ expression : mutable assignment expression
   
 
 
+<<<<<<< HEAD
 | mutable plus_assign expression
+=======
+| mutable "+=" expression
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 
 
@@ -688,7 +708,11 @@ expression : mutable assignment expression
 
 
 
+<<<<<<< HEAD
 | mutable minus_assign expression
+=======
+| mutable "-=" expression
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 
 
@@ -701,7 +725,11 @@ expression : mutable assignment expression
 
 
 
+<<<<<<< HEAD
 |  mutable multiply_assign expression
+=======
+|  mutable "*=" expression
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 
 
@@ -714,7 +742,11 @@ expression : mutable assignment expression
 
 
 
+<<<<<<< HEAD
 | mutable divide_assign expression
+=======
+| mutable "/=" expression
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 
 
@@ -931,35 +963,55 @@ relop : less_equal
 
 
 
+<<<<<<< HEAD
 mathlogicExpression : mathlogicExpression plus mathlogicExpression
+=======
+mathlogicExpression : mathlogicExpression '+' mathlogicExpression
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 
  {
 		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
 	};
 
+<<<<<<< HEAD
 |mathlogicExpression minus mathlogicExpression
+=======
+|mathlogicExpression '-' mathlogicExpression
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 
   {
  		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
  	};
 
+<<<<<<< HEAD
 |mathlogicExpression multiply mathlogicExpression
+=======
+|mathlogicExpression '*' mathlogicExpression
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 
   {
  		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
  	};
 
+<<<<<<< HEAD
 |mathlogicExpression division mathlogicExpression
+=======
+|mathlogicExpression '/' mathlogicExpression
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 
   {
  		System.out.printf("Rule 81 mathlogicExpression : mathlogicExpression mathop mathlogicExpression   \n") ;
  	};
 
+<<<<<<< HEAD
 |mathlogicExpression modulo mathlogicExpression
+=======
+|mathlogicExpression '%' mathlogicExpression
+>>>>>>> 0d4218834c01dcf4c87a748573f5ca5b3b43b58e
 
 
   {

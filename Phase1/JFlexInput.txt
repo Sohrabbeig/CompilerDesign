@@ -1,5 +1,11 @@
 static int last = 0;
 %%
+
+
+
+
+
+
 LineTerminator = \r|\n|\r\n
 WhiteSpace = {LineTerminator}| [ \t\f]
 letter = [a-zA-Z]
@@ -70,63 +76,63 @@ BoolConst = (true)|(false)
 
 %%
 
-{Real_const}					{System.out.println("Real_const"+"\t"+yytext()+"\t"+"-");}
-{number_error}					{System.out.println("number_error"+"\t"+yytext()+"\t"+"-");}
-{BoolConst}                     {System.out.println("BoolConst"+"\t"+yytext()+"\t"+"-");}
-{greater_than}					{System.out.println("greater_than"+"\t"+yytext()+"\t"+"-");}
-{greater_equal}					{System.out.println("greater_equal"+"\t"+yytext()+"\t"+"-");}
-{not_equal}						{System.out.println("not_equal"+"\t"+yytext()+"\t"+"-");}
-{equal}							{System.out.println("equal"+"\t"+yytext()+"\t"+"-");}
-{less_equal}					{System.out.println("less_equal"+"\t"+yytext()+"\t"+"-");}
-{less_than}						{System.out.println("less_than"+"\t"+yytext()+"\t"+"-");}
-{square_bracket_left}			{System.out.println("square_bracket_left"+"\t"+yytext()+"\t"+"-");}
-{square_bracket_right}			{System.out.println("square_bracket_right"+"\t"+yytext()+"\t"+"-");}
-{curly_brace_left}				{System.out.println("curly_brace_left"+"\t"+yytext()+"\t"+"-");}
-{curly_brace_right} 			{System.out.println("curly_brace_right"+"\t"+yytext()+"\t"+"-");}
-{parenthesis_left}				{System.out.println("parenthesis_left"+"\t"+yytext()+"\t"+"-");}
-{parenthesis_right}				{System.out.println("parenthesis_right"+"\t"+yytext()+"\t"+"-");}
-{semicolon}						{System.out.println("semicolon"+"\t"+yytext()+"\t"+"-");}
-{comma}							{System.out.println("comma"+"\t"+yytext()+"\t"+"-");}
-{colon}							{System.out.println("colon"+"\t"+yytext()+"\t"+"-");}
-{dot}							{System.out.println("dot"+"\t"+yytext()+"\t"+"-");}
-{AND_THEN}						{System.out.println("AND_THEN"+"\t"+yytext()+"\t"+"-");}
-{OR_ELSE}						{System.out.println("OR_ELSE"+"\t"+yytext()+"\t"+"-");}
-{OR}							{System.out.println("OR"+"\t"+yytext()+"\t"+"-");}
-{AND}							{System.out.println("AND"+"\t"+yytext()+"\t"+"-");}
-{NOT}							{System.out.println("NOT"+"\t"+yytext()+"\t"+"-");}
-{IF}							{System.out.println("IF"+"\t"+yytext()+"\t"+"-");}
-{ELSE}							{System.out.println("ELSE"+"\t"+yytext()+"\t"+"-");}
-{SWITCH}						{System.out.println("SWITCH"+"\t"+yytext()+"\t"+"-");}
-{END}							{System.out.println("END"+"\t"+yytext()+"\t"+"-");}
-{CASE}							{System.out.println("CASE"+"\t"+yytext()+"\t"+"-");}
-{DEFAULT}						{System.out.println("DEFAULT"+"\t"+yytext()+"\t"+"-");}
-{WHILE}							{System.out.println("WHILE"+"\t"+yytext()+"\t"+"-");}
-{RETURN}						{System.out.println("RETURN"+"\t"+yytext()+"\t"+"-");}
-{BREAK}							{System.out.println("BREAK"+"\t"+yytext()+"\t"+"-");}
-{RECORD}						{System.out.println("RECORD"+"\t"+yytext()+"\t"+"-");}
-{Static}						{System.out.println("Static"+"\t"+yytext()+"\t"+"-");}
-{INT}							{System.out.println("INT"+"\t"+yytext()+"\t"+"-");}
-{REAL}							{System.out.println("REAL"+"\t"+yytext()+"\t"+"-");}
-{BOOL}							{System.out.println("BOOL"+"\t"+yytext()+"\t"+"-");}
-{CHAR}							{System.out.println("CHAR"+"\t"+yytext()+"\t"+"-");}
-{plus_assign}					{System.out.println("plus_assign"+"\t"+yytext()+"\t"+"-");}
-{minus_assign}					{System.out.println("minus_assign"+"\t"+yytext()+"\t"+"-");}
-{multiply_assign}				{System.out.println("multiply_assign"+"\t"+yytext()+"\t"+"-");}
-{divide_assign}					{System.out.println("divide_assign"+"\t"+yytext()+"\t"+"-");}
-{question_mark}					{System.out.println("question_mark"+"\t"+yytext()+"\t"+"-");}
-{modulo}						{System.out.println("modulo"+"\t"+yytext()+"\t"+"-");}
-{division}						{System.out.println("division"+"\t"+yytext()+"\t"+"-");}
-{multiply}						{System.out.println("multiply"+"\t"+yytext()+"\t"+"-");}
-{minus}							{System.out.println("minus"+"\t"+yytext()+"\t"+"-");}
-{plus}							{System.out.println("plus"+"\t"+yytext()+"\t"+"-");}
-{assignment}					{System.out.println("assignment"+"\t"+yytext()+"\t"+"-");}
-{NUMCONST}						{System.out.println("NUMCONST"+"\t"+yytext()+"\t"+"-");}
-{ID}							{System.out.println("ID"+"\t"+yytext()+last);
+{Real_const}					{return YYParser.Real_const;}
+{number_error}					{return YYParser.number_error;}
+{BoolConst}                    	{return YYParser.BoolConst;}
+{greater_than}					{return YYParser.greater_than;}
+{greater_equal}					{return YYParser.greater_equal;}
+{not_equal}						{return YYParser.not_equal;}
+{equal}							{return YYParser.equal;}
+{less_equal}					{return YYParser.less_equal;}
+{less_than}						{return YYParser.less_than;}
+{square_bracket_left}			{return YYParser.square_bracket_left;}
+{square_bracket_right}			{return YYParser.square_bracket_right;}
+{curly_brace_left}				{return YYParser.curly_brace_left;}
+{curly_brace_right} 			{return YYParser.curly_brace_right;}
+{parenthesis_left}				{return YYParser.parenthesis_left;}
+{parenthesis_right}				{return YYParser.parenthesis_right;}
+{semicolon}						{return YYParser.semicolon;}
+{comma}							{return YYParser.comma;}
+{colon}							{return YYParser.colon;}
+{dot}							{return YYParser.dot;}
+{AND_THEN}						{return YYParser.AND_THEN;}	
+{OR_ELSE}						{return YYParser.OR_ELSE;}	
+{OR}							{return YYParser.OR;}
+{AND}							{return YYParser.AND;}	
+{NOT}							{return YYParser.NOT;}
+{IF}							{return YYParser.IF;}
+{ELSE}							{return YYParser.ELSE;}
+{SWITCH}						{return YYParser.SWITCH;}
+{END}							{return YYParser.END;}
+{CASE}							{return YYParser.CASE;}
+{DEFAULT}						{return YYParser.DEFAULT;}
+{WHILE}							{return YYParser.WHILE;}
+{RETURN}						{return YYParser.RETURN;}
+{BREAK}							{return YYParser.BREAK;}
+{RECORD}						{return YYParser.RECORD;}
+{Static}						{return YYParser.Static;}
+{INT}							{return YYParser.INT;}
+{REAL}							{return YYParser.REAL;}
+{BOOL}							{return YYParser.BOOL;}
+{CHAR}							{return YYParser.CHAR;}
+{plus_assign}					{return YYParser.plus_assign;}
+{minus_assign}					{return YYParser.minus_assign;}
+{multiply_assign}				{return YYParser.multiply_assign;}
+{divide_assign}					{return YYParser.divide_assign;}
+{question_mark}					{return YYParser.question_mark;}
+{modulo}						{return YYParser.modulo;}
+{division}						{return YYParser.division;}
+{multiply}						{return YYParser.multiply;}
+{minus}							{return YYParser.minus;}
+{plus}							{return YYParser.plus;}
+{assignment}					{return YYParser.assignment;}
+{NUMCONST}						{return YYParser.NUMCONST;}
+{ID}							{return YYParser.ID;
                                  last++;
                                 }
-{Fake_id}						{System.out.println("Fake_id"+"\t"+yytext()+"\t"+"-");}
+{Fake_id}					{return YYParser.Fake_id;}
 {WhiteSpace}					{}
-{comment}						{System.out.println("comment"+"\t"+yytext()+"\t"+"-");}
-.								{System.out.println("illegal character");}
+{comment}					{}
+.								{}
 
 
