@@ -1,0 +1,146 @@
+
+%%
+
+%{
+int s = 12;
+%}
+
+
+
+
+LineTerminator = \r|\n|\r\n
+WhiteSpace = {LineTerminator}| [ \t\f]
+letter = [a-zA-Z]
+digit = [0-9]
+pos_digit=[1-9]
+letdig = {digit}|{letter}
+
+ID = #{letter}{letter}{digit}{digit}
+NUMCONST = {digit}+
+CHARCONST = "\\"{letter}|"\\"{digit}
+newline = "\\"n
+singleQuote = "\\""\'"
+singleBackSlash = "\\""\\"
+null = "\\"0
+RECORD = (record)
+Static = (static)
+INT = (int)
+REAL = (real)
+BOOL = (bool)
+CHAR = (char)
+IF = (if)
+ELSE = (else)
+SWITCH = (switch)
+END = (end)
+CASE = (case)
+DEFAULT = (default)
+WHILE = (while)
+RETURN = (return)
+BREAK = (break)
+plus_plus="+""+"
+minus_minus="-""-"
+
+assignment = "=" 
+plus_assign = "+""="
+minus_assign = "-""="
+multiply_assign = "*""="
+divide_assign = "/""="
+plus = "+"
+minus = "-"
+multiply = "*"
+division = "/"
+modulo = "%"
+question_mark = "?"
+OR = (or)
+AND = (and)
+NOT = (not)
+AND_THEN = (and)" "(then)
+OR_ELSE =  (or)" "(else)
+greater_than = ".gt"
+greater_equal = (.ge)
+less_than = (.lt)
+less_equal = (.le)
+not_equal = (.ne)
+equal = (.eq)
+minus_sing = "-"
+square_bracket_left = "["
+square_bracket_right = "]"
+curly_brace_left = "{"
+curly_brace_right = "}"
+parenthesis_left = "("
+parenthesis_right = ")"
+semicolon = ";"
+comma =","
+colon = ":"
+dot = "."
+Real_const={pos_digit}{digit}*{dot}{digit}*{pos_digit} | 0{dot}{digit}*{pos_digit} | 0{dot}0 | {pos_digit}{digit}*{dot}0
+Fake_id= "#"{letdig}* | {letdig}+
+number_error="0"+{digit}*{dot}{digit}* | {digit}*{dot}{digit}*"0"+
+
+comment="//".*
+BoolConst = (true)|(false)
+
+%%
+
+{Real_const}					{return YYParser.Real_const;}
+{number_error}					{return YYParser.number_error;}
+{BoolConst}                    	{return YYParser.BoolConst;}
+{greater_than}					{return YYParser.greater_than;}
+{greater_equal}					{return YYParser.greater_equal;}
+{not_equal}						{return YYParser.not_equal;}
+{equal}							{return YYParser.equal;}
+{less_equal}					{return YYParser.less_equal;}
+{less_than}						{return YYParser.less_than;}
+{square_bracket_left}			{return YYParser.square_bracket_left;}
+{square_bracket_right}			{return YYParser.square_bracket_right;}
+{curly_brace_left}				{return YYParser.curly_brace_left;}
+{curly_brace_right} 			{return YYParser.curly_brace_right;}
+{parenthesis_left}				{return YYParser.parenthesis_left;}
+{parenthesis_right}				{return YYParser.parenthesis_right;}
+{plus_plus}						{return YYParser.plus_plus;}
+{minus_minus}					{return YYParser.minus_minus;}
+{semicolon}						{return YYParser.semicolon;}
+{comma}							{return YYParser.comma;}
+{colon}							{return YYParser.colon;}
+{dot}							{return YYParser.dot;}
+{AND_THEN}						{return YYParser.AND_THEN;}	
+{OR_ELSE}						{return YYParser.OR_ELSE;}	
+{OR}							{return YYParser.OR;}
+{AND}							{return YYParser.AND;}	
+{NOT}							{return YYParser.NOT;}
+{IF}							{return YYParser.IF;}
+{ELSE}							{return YYParser.ELSE;}
+{SWITCH}						{return YYParser.SWITCH;}
+{END}							{return YYParser.END;}
+{CASE}							{return YYParser.CASE;}
+{DEFAULT}						{return YYParser.DEFAULT;}
+{WHILE}							{return YYParser.WHILE;}
+{RETURN}						{return YYParser.RETURN;}
+{BREAK}							{return YYParser.BREAK;}
+{RECORD}						{return YYParser.RECORD;}
+{Static}						{return YYParser.Static;}
+{INT}							{return YYParser.INT;}
+{REAL}							{return YYParser.REAL;}
+{BOOL}							{return YYParser.BOOL;}
+{CHAR}							{return YYParser.CHAR;}
+{plus_assign}					{return YYParser.plus_assign;}
+{minus_assign}					{return YYParser.minus_assign;}
+{multiply_assign}				{return YYParser.multiply_assign;}
+{divide_assign}					{return YYParser.divide_assign;}
+{question_mark}					{return YYParser.question_mark;}
+{modulo}						{return YYParser.modulo;}
+{division}						{return YYParser.division;}
+{multiply}						{return YYParser.multiply;}
+{minus}							{return YYParser.minus;}
+{plus}							{return YYParser.plus;}
+{assignment}					{return YYParser.assignment;}
+{NUMCONST}						{return YYParser.NUMCONST;}
+{ID}							{return YYParser.ID;
+								
+                                }
+{Fake_id}					{return YYParser.Fake_id;}
+{WhiteSpace}					{}
+{comment}					{}
+.								{}
+
+
